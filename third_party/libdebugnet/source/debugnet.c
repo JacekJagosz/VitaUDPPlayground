@@ -58,6 +58,10 @@ void debugNetUDPSend(const char *text)
 	sceNetSend(dconfig->SocketFD, text, strlen(text), 0);
 }
 
+int debugNetUDPRecv(char *buf)
+{
+    return sceNetRecv(dconfig->SocketFD, buf, sizeof(buf)/sizeof(char)-1, 0);
+}
 /**
  * Log Level printf for debugnet library 
  *
@@ -203,7 +207,8 @@ int debugNetInit(const char *serverIp, int port, int level)
 	/*library debugnet initialized*/
     dconfig->debugnet_initialized = 1;
 	}
-
+	//int32_t on;
+    //sceNetSetsockopt(dconfig->SocketFD, SCE_NET_SOL_SOCKET, SCE_NET_SO_BROADCAST, (const void*)&on, sizeof(on));
     return dconfig->debugnet_initialized;
 }
 

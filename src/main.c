@@ -27,7 +27,7 @@ int main()
     debugNetInit(ip_server,port_server,DEBUG);
     sceCtrlSetSamplingMode(SCE_CTRL_MODE_ANALOG);
     SceCtrlData ctrl;
-    sceNetSetsockopt(dconfig->SocketFD, SCE_NET_SOL_SOCKET, SCE_NET_SO_BROADCAST, (const void*)&on, sizeof(on));
+    //sceNetSetsockopt(dconfig->SocketFD, SCE_NET_SOL_SOCKET, SCE_NET_SO_BROADCAST, (const void*)&on, sizeof(on));
     debugNetUDPPrintf("%s\n","command");
     printf("Hello\n");
     /*printf("world\n");
@@ -39,7 +39,8 @@ int main()
         sceCtrlPeekBufferPositive(0, &ctrl, 1);
         unsigned int pressedButtons = ((previousButtons ^ ctrl.buttons) & ctrl.buttons); //determine which buttons have just been depressed; 1 for pressed, 0 for anything else
         char buf[51];
-        int len = sceNetRecv(dconfig->SocketFD, buf, sizeof(buf)/sizeof(char)-1, 0);
+        //int len = sceNetRecv(dconfig->SocketFD, buf, sizeof(buf)/sizeof(char)-1, 0);
+        int len = debugNetUDPRecv(buf);
         printf("\r%i %s", len, buf);
     }while(ctrl.buttons != (SCE_CTRL_START | SCE_CTRL_SELECT));
     

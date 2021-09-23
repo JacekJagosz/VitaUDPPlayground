@@ -7,8 +7,10 @@
 #include <stdio.h>
 #include "debugScreen.h"
 
-#define ip_server "192.168.1.9"
-#define port_server 18194
+//#define ip_server "192.168.1.9"
+#define ip_server "127.0.0.1"
+//#define port_server 18194
+#define port_server 5000
 
 #define stickDeadzone 10
 

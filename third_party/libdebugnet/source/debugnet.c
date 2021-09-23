@@ -58,9 +58,11 @@ void debugNetUDPSend(const char *text)
 	sceNetSend(dconfig->SocketFD, text, strlen(text), 0);
 }
 
-int debugNetUDPRecv(char *buf)
+unsigned long debugNetUDPRecv(char *buf, unsigned long bufsize)
 {
-    return sceNetRecv(dconfig->SocketFD, buf, sizeof(buf)/sizeof(char)-1, 0);
+    unsigned long n = sceNetRecv(dconfig->SocketFD, buf, bufsize, 0);
+    //buf[n] = '\0';
+    return n;
 }
 /**
  * Log Level printf for debugnet library 

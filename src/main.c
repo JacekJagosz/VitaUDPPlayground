@@ -12,6 +12,8 @@
 //#define port_server 18194
 #define port_server 5000
 
+#define buflen 51
+
 #define stickDeadzone 10
 
 #define printf psvDebugScreenPrintf
@@ -38,9 +40,10 @@ int main()
         unsigned int previousButtons = ctrl.buttons;
         sceCtrlPeekBufferPositive(0, &ctrl, 1);
         unsigned int pressedButtons = ((previousButtons ^ ctrl.buttons) & ctrl.buttons); //determine which buttons have just been depressed; 1 for pressed, 0 for anything else
-        char buf[51];
+
+        char buf[buflen];
         //int len = sceNetRecv(dconfig->SocketFD, buf, sizeof(buf)/sizeof(char)-1, 0);
-        int len = debugNetUDPRecv(buf);
+        int len = debugNetUDPRecv(buf, buflen);
         printf("\r%i %s", len, buf);
     }while(ctrl.buttons != (SCE_CTRL_START | SCE_CTRL_SELECT));
     
